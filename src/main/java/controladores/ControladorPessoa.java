@@ -22,44 +22,19 @@ public abstract class  ControladorPessoa {
         ControladorEndereco.getInstanciaControladorEndereco().cadastrarEnderecoGrafico(p.getEndereco(), logradouro, numero, bairro, cidade, estado, cep);
     }
 
-    public void mostrarDadosPessoa(Pessoa p) {
-        System.out.println("Nome: "+p.getNome());
-        System.out.println("CPF: "+p.getCpf());
-        System.out.println("E-mail: "+p.getEmail());
-        System.out.println("Telefone celular: "+p.getTelefone());
-        ControladorEndereco.getInstanciaControladorEndereco().mostrarEndereco(p.getEndereco());
-    }
-
-    public void alteraDadosPessoa(Pessoa p) {
-        String nome = leitor.lerTextoOpcional("Nome (enter para não alterar): ");
+    public void alteraDadosPessoaGrafico(Pessoa p, String nome, String email, String telefone, String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
         if (!nome.isEmpty()) {
             p.setNome(nome);
         }
-
-        String cpf = leitor.lerCpfOpcional(
-                "Informe o novo CPF (enter para não alterar): "
-        );
-
-        if (cpf != null) {
-            p.setCpf(cpf);
-        }
-
-        String email = leitor.lerEmailOpcional(
-                "Informe o novo e-mail (enter para não alterar): "
-        );
 
         if (email != null) {
             p.setEmail(email);
         }
 
-        String telefone = leitor.lerTelefoneOpcional(
-                "Novo telefone (enter para não alterar): "
-        );
-
         if (telefone != null) {
             p.setTelefone(telefone);
         }
-        ControladorEndereco.getInstanciaControladorEndereco().alterarEndereco(p.getEndereco());
+        ControladorEndereco.getInstanciaControladorEndereco().alterarEnderecoGrafico(p.getEndereco(), logradouro, numero, bairro, cidade, estado, cep);
     }
 
     public void consultarPessoaPorNome(List<? extends Pessoa> lista) {
@@ -69,7 +44,7 @@ public abstract class  ControladorPessoa {
         for (Pessoa p : lista) {
             if (p.getNome().toLowerCase().contains(nomeConsulta.toLowerCase())) {
                 System.out.println(p.getIdentificacao());
-                mostrarDadosPessoa(p);
+                //mostrarDadosPessoa(p);
                 existeRegistro = true;
                 System.out.println("==================================================================");
             }
@@ -88,7 +63,7 @@ public abstract class  ControladorPessoa {
         for (Pessoa p : lista) {
             if (p.getCpf().replaceAll("[^0-9]", "").contains(cpfConsulta.replaceAll("[^0-9]", ""))) {
                 System.out.println(p.getIdentificacao());
-                mostrarDadosPessoa(p);
+                //mostrarDadosPessoa(p);
                 existeRegistro = true;
                 System.out.println("==================================================================");
             }
@@ -107,7 +82,7 @@ public abstract class  ControladorPessoa {
         for (Pessoa p : lista) {
             if (p.getEmail().toLowerCase().contains(emailConsulta.toLowerCase())) {
                 System.out.println(p.getIdentificacao());
-                mostrarDadosPessoa(p);
+                //mostrarDadosPessoa(p);
                 existeRegistro = true;
                 System.out.println("==================================================================");
             }
@@ -126,7 +101,7 @@ public abstract class  ControladorPessoa {
         for (Pessoa p : lista) {
             if (p.getTelefone().replaceAll("[^0-9]", "").contains(telefoneConsulta.replaceAll("[^0-9]", ""))) {
                 System.out.println(p.getIdentificacao());
-                mostrarDadosPessoa(p);
+                //mostrarDadosPessoa(p);
                 existeRegistro = true;
                 System.out.println("==================================================================");
             }

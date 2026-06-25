@@ -15,7 +15,28 @@ public class TelaListarClientes extends javax.swing.JPanel {
      */
     public TelaListarClientes() {
         initComponents();
+        
+        // 1. Remove as amarras do GroupLayout do NetBeans
+        this.setLayout(new java.awt.BorderLayout());
+        this.removeAll();
+        
+        // 2. Centraliza o texto do título e dá um espaçamento sutil (15px acima e abaixo)
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 0, 15, 0));
+        
+        // 3. Aplica uma margem sutil (respiro) nas laterais (10px) e embaixo (10px) do painel inteiro
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        
+        // 4. Injeta os componentes de volta de forma inteligente e responsiva
+        this.add(jLabelTitulo, java.awt.BorderLayout.NORTH);   // O título fica preso no topo, centralizado
+        this.add(jScrollPane1, java.awt.BorderLayout.CENTER);  // A tabela preenche TODO o espaço restante, expandindo junto com a tela
+        
+        // 5. Carrega os dados na tabela
         carregarTabela();
+        
+        // 6. Avisa o Java para recalcular as novas posições
+        this.revalidate();
+        this.repaint();
     }
     
     private void carregarTabela() {
@@ -63,6 +84,7 @@ public class TelaListarClientes extends javax.swing.JPanel {
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("CLIENTES CADASTRADOS");
 
         jTableListaClientes.setModel(new javax.swing.table.DefaultTableModel(

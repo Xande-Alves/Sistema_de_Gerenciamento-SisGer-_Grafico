@@ -60,12 +60,12 @@ public class ControladorFornecedor extends ControladorPessoa{
         for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
             if (fornec.getIdFornecedor() == idFornecedor) {
                 System.out.println("ID: "+fornec.getIdFornecedor());
-                mostrarDadosPessoa(fornec);
+                //mostrarDadosPessoa(fornec);
                 System.out.println("Nome da empresa: "+fornec.getRepresentaEmpresaNome());
                 System.out.println("CNPJ da empresa: "+fornec.getRepresentaEmpresaCnpj());
                 System.out.println("==================================================================");
 
-                alteraDadosPessoa(fornec);
+                //alteraDadosPessoa(fornec);
                 String novoNomeEmpresa = leitor.lerTexto("Informe o novo nome da empresa (enter para não alterar): ");
                 if (!novoNomeEmpresa.isEmpty()) {
                     fornec.setRepresentaEmpresaNome(novoNomeEmpresa);
@@ -92,7 +92,7 @@ public class ControladorFornecedor extends ControladorPessoa{
         System.out.println("=======================LISTA DE FORNECEDORES======================");
         for(Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
             System.out.println("ID fornecedor: "+fornec.getIdFornecedor());
-            mostrarDadosPessoa(fornec);
+            //mostrarDadosPessoa(fornec);
             System.out.println("Nome da empresa: "+fornec.getRepresentaEmpresaNome());
             System.out.println("CNPJ da empresa: "+fornec.getRepresentaEmpresaCnpj());
 
@@ -100,13 +100,6 @@ public class ControladorFornecedor extends ControladorPessoa{
         }
     }
 
-    @Override
-    public void mostrarDadosPessoa(Pessoa p) {
-        super.mostrarDadosPessoa(p);
-        Fornecedor f = (Fornecedor) p;
-        System.out.println("Nome da empresa: " + f.getRepresentaEmpresaNome());
-        System.out.println("CNPJ da empresa: " + f.getRepresentaEmpresaCnpj());
-    }
 
     public void consultarFornecedorNome() { consultarPessoaPorNome(Repositorio.getInstanciaRepositorio().getListaFornecedores()); }
 
@@ -128,7 +121,7 @@ public class ControladorFornecedor extends ControladorPessoa{
         for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
             if (fornec.getRepresentaEmpresaNome().toLowerCase().contains(nomeEmpresa.toLowerCase())) {
                 System.out.println("ID Fornecedor: " + fornec.getIdFornecedor());
-                mostrarDadosPessoa(fornec);
+                //mostrarDadosPessoa(fornec);
                 System.out.println("==================================================================");
                 existeFornecedor = true;
             }
@@ -146,7 +139,7 @@ public class ControladorFornecedor extends ControladorPessoa{
         for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
             if (fornec.getRepresentaEmpresaCnpj().replaceAll("[^0-9]", "").contains(cnpjEmpresa)) {
                 System.out.println("ID entidades.Fornecedor: " + fornec.getIdFornecedor());
-                mostrarDadosPessoa(fornec);
+                //mostrarDadosPessoa(fornec);
                 System.out.println("==================================================================");
                 existeFornecedor = true;
             }

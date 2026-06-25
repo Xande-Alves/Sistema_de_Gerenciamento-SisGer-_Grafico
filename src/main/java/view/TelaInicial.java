@@ -26,67 +26,85 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
-        
+
         // 1. Maximiza a tela para ocupar todo o monitor do usuário
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        
-        // 2. Centraliza o jPanel1 no container principal da janela (GridBagLayout)
+
+        // 2. CORREÇÃO DO BACKGROUND: Pinta o fundo do JFrame com o mesmo azul do jPanel1
+        // Isso elimina aquela borda cinza gigante quando a tela expande!
+        java.awt.Color corAzul = jPanel1.getBackground();
+        getContentPane().setBackground(corAzul);
+
+        // 3. Centraliza o jPanel1 no container principal da janela (GridBagLayout)
         getContentPane().setLayout(new java.awt.GridBagLayout());
-        getContentPane().add(jPanel1);
-        
-        // --- ADICIONE ESTE BLOCO PARA CENTRALIZAR OS COMPONENTES ENTRE SI ---
-        
-        // 3. Muda o layout INTERNO do jPanel1 para BoxLayout (Alinhamento em coluna)
-        // Isso remove o layout complexo do NetBeans que causa o desalinhamento
+
+        java.awt.GridBagConstraints gbcFrame = new java.awt.GridBagConstraints();
+        gbcFrame.gridx = 0;
+        gbcFrame.gridy = 0;
+        gbcFrame.anchor = java.awt.GridBagConstraints.CENTER;
+        getContentPane().add(jPanel1, gbcFrame);
+
+        // --- BLOCO DE DESIGN PARA CENTRALIZAR OS COMPONENTES ENTRE SI ---
+        // Muda o layout INTERNO do jPanel1 para BoxLayout (Alinhamento em coluna)
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
-        
-        // 4. Cria e aplica um alinhamento centralizado e espaçamento vertical
+
         float centralizado = java.awt.Component.CENTER_ALIGNMENT;
         int espacamento = 10; // Espaço vertical entre os componentes (pixels)
-        
+
         // Aplica o alinhamento central para o Título
         jLabelTitulo.setAlignmentX(centralizado);
-        
+
         // Cria um sub-painel para agrupar Usuário e Senha e centralizá-lo
         javax.swing.JPanel painelCampos = new javax.swing.JPanel();
         painelCampos.setLayout(new java.awt.GridBagLayout()); // Usamos GridBagLayout aqui para manter Rótulo:Campo
-        
+        painelCampos.setBackground(corAzul); // Garante o fundo azul no sub-painel
+
         java.awt.GridBagConstraints c = new java.awt.GridBagConstraints();
         c.insets = new java.awt.Insets(5, 5, 5, 5); // Pequenas margens
-        
+
         // Linha do Usuário
-        c.gridx = 0; c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = 0;
         painelCampos.add(jLabelUsuario, c);
         c.gridx = 1;
-        
-        // Corrigindo o tamanho dos campos como na etapa anterior
+
+        // Tamanho dos campos
         java.awt.Dimension tamanhoCampo = new java.awt.Dimension(150, 26);
         jTextFieldUsuario.setPreferredSize(tamanhoCampo);
         jTextFieldUsuario.setMinimumSize(tamanhoCampo);
         painelCampos.add(jTextFieldUsuario, c);
-        
+
         // Linha da Senha
-        c.gridx = 0; c.gridy = 1;
+        c.gridx = 0;
+        c.gridy = 1;
         painelCampos.add(jLabelSenha, c);
         c.gridx = 1;
         jPasswordFieldSenha.setPreferredSize(tamanhoCampo);
         jPasswordFieldSenha.setMinimumSize(tamanhoCampo);
         painelCampos.add(jPasswordFieldSenha, c);
-        
+
         // Centraliza o sub-painel de campos e o Botão
         painelCampos.setAlignmentX(centralizado);
         jButtonEntrar.setAlignmentX(centralizado);
-        
-        // 5. Reconstrói o jPanel1 na ordem correta, com espaçamentos
-        jPanel1.removeAll(); // Remove a configuração antiga e quebrada
-        
+
+        // 4. Reconstrói o jPanel1 na ordem correta, com espaçamentos
+        jPanel1.removeAll();
+
         jPanel1.add(jLabelTitulo);
         jPanel1.add(javax.swing.Box.createVerticalStrut(30)); // Espaço maior abaixo do título
         jPanel1.add(painelCampos);
         jPanel1.add(javax.swing.Box.createVerticalStrut(espacamento));
         jPanel1.add(jButtonEntrar);
-        
-        // Revalida e redesenha
+
+        // 5. CORREÇÃO DO BOTÃO: Reatribui o evento de clique que o removeAll() apagou
+        jButtonEntrar.addActionListener(this::jButtonEntrarActionPerformed);
+
+        // Define o gatilho do ENTER para o botão de login
+        this.getRootPane().setDefaultButton(jButtonEntrar);
+
+        // Revalida e redesenha a tela completa
+        getContentPane().revalidate();
+        getContentPane().repaint();
         jPanel1.revalidate();
         jPanel1.repaint();
     }
@@ -111,9 +129,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitulo.setText("SisGer");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -122,6 +142,7 @@ public class TelaInicial extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
         jPanel1.add(jLabelTitulo, gridBagConstraints);
 
+        jLabelUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jLabelUsuario.setText("Usuário");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -131,6 +152,7 @@ public class TelaInicial extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(46, 121, 0, 0);
         jPanel1.add(jLabelUsuario, gridBagConstraints);
 
+        jLabelSenha.setForeground(new java.awt.Color(0, 0, 0));
         jLabelSenha.setText("Senha");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -148,6 +170,8 @@ public class TelaInicial extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(43, 6, 0, 144);
         jPanel1.add(jTextFieldUsuario, gridBagConstraints);
 
+        jButtonEntrar.setBackground(new java.awt.Color(102, 102, 255));
+        jButtonEntrar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonEntrar.setText("Entrar");
         jButtonEntrar.addActionListener(this::jButtonEntrarActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -183,14 +207,14 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
         String login = this.jTextFieldUsuario.getText();
-        
+
         // FORMA CORRETA: Captura como array de char
         char[] senhaArray = jPasswordFieldSenha.getPassword();
         // Converte para String APENAS se o seu controlador exigir uma String
         String senha = new String(senhaArray);
         // Limpa o array da memória logo após o uso por segurança
         java.util.Arrays.fill(senhaArray, '0');
-        
+
         List<Funcionario> listaFunc = Repositorio.getInstanciaRepositorio().getListaFuncionarios();
 
         boolean loginSucesso = ControladorLogin.getInstanciaControladorLogin().efetuarLoginGrafico(login, senha, listaFunc);

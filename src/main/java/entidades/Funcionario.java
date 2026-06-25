@@ -22,7 +22,7 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String getIdentificacao() {
-        return "ID Funcionário: " + getIdFuncionario();
+        return "" + getIdFuncionario();
     }
 
     public int getIdFuncionario() {

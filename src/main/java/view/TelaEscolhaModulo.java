@@ -5,6 +5,7 @@
 package view;
 
 import view.telasCliente.TelaMenuCliente;
+import view.telasFuncionario.TelaMenuFuncionario;
 
 /**
  *
@@ -20,16 +21,32 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
     public TelaEscolhaModulo() {
         initComponents();
         
+        // --- SEU CÓDIGO EDITÁVEL E SEGURO ---
+        
         // 1. Maximiza a tela para ocupar todo o monitor do usuário
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
-        // 2. Centraliza o jPanel1 (com todos os botões dentro) na linha média da tela
-        getContentPane().setLayout(new java.awt.GridBagLayout());
-        getContentPane().add(jPanel1);
+        // 2. CORREÇÃO DO BACKGROUND: Pinta o fundo do JFrame com o mesmo roxo do jPanel1
+        // Isso elimina a borda cinza quando a janela estica!
+        java.awt.Color corRoxa = jPanel1.getBackground();
+        getContentPane().setBackground(corRoxa);
         
-        // Revalida e redesenha a tela para aplicar as alterações
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        // 3. Muda o layout do container principal para GridBagLayout (garante a centralização)
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+        
+        // 4. Configura as regras para o jPanel1 flutuar perfeitamente centralizado
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = java.awt.GridBagConstraints.CENTER;
+        
+        // 5. Remove o jPanel1 do layout antigo e joga ele no GridBagLayout centralizado
+        // Sem tocar nos componentes internos (evitando o erro de GroupLayout)
+        getContentPane().add(jPanel1, gbc);
+        
+        // Revalida e redesenha a tela completa para aplicar o visual
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
 
     /**
@@ -52,17 +69,21 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonFuncionario.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setForeground(new java.awt.Color(153, 153, 255));
+
+        jButtonFuncionario.setBackground(new java.awt.Color(102, 102, 255));
         jButtonFuncionario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonFuncionario.setForeground(new java.awt.Color(0, 0, 0));
         jButtonFuncionario.setText("Funcionário");
+        jButtonFuncionario.addActionListener(this::jButtonFuncionarioActionPerformed);
 
-        jButtonProduto.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonProduto.setBackground(new java.awt.Color(102, 102, 255));
         jButtonProduto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonProduto.setForeground(new java.awt.Color(0, 0, 0));
         jButtonProduto.setText("Produto");
 
-        jButtonCliente.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonCliente.setBackground(new java.awt.Color(102, 102, 255));
         jButtonCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonCliente.setForeground(new java.awt.Color(0, 0, 0));
         jButtonCliente.setText("Cliente");
@@ -73,17 +94,18 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         jButtonSair.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSair.setText("Sair");
 
-        jButtonVenda.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonVenda.setBackground(new java.awt.Color(102, 102, 255));
         jButtonVenda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonVenda.setForeground(new java.awt.Color(0, 0, 0));
         jButtonVenda.setText("Venda");
 
-        jButtonEstoque.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonEstoque.setBackground(new java.awt.Color(102, 102, 255));
         jButtonEstoque.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonEstoque.setForeground(new java.awt.Color(0, 0, 0));
         jButtonEstoque.setText("Estoque");
 
         jLabelEscolhaModulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelEscolhaModulo.setForeground(new java.awt.Color(0, 0, 0));
         jLabelEscolhaModulo.setText("ESCOLHA O MÓDULO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -147,6 +169,13 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         telaMenuCliente.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButtonClienteActionPerformed
+
+    private void jButtonFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFuncionarioActionPerformed
+        TelaMenuFuncionario telaMenuFuncionario = new TelaMenuFuncionario();
+        telaMenuFuncionario.setVisible(true);
+        telaMenuFuncionario.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButtonFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments

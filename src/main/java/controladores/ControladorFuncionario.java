@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ControladorFuncionario extends ControladorPessoa {
+
     private final Scanner scanner = new Scanner(System.in);
     private final LeitorConsole leitor = new LeitorConsole(scanner);
     private final DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -27,62 +28,76 @@ public class ControladorFuncionario extends ControladorPessoa {
         return controladorFuncionarioInstancia;
     }
 
-    public void cadastrarFuncionario () {
-        System.out.println("=====================CADASTRO DE FUNCIONÁRIOS======================");
+    public int cadastrarFuncionarioGrafico(String nome, String cpf, String email, String telefone, String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
 
         int idFuncionario = Repositorio.getInstanciaRepositorio().getListaFuncionarios().size() + 1;
 
-        Funcionario func = new Funcionario(idFuncionario,false);
+        Funcionario func = new Funcionario(idFuncionario, false);
 
-        //cadastrarPessoa(func);
-
-        int concluir = leitor.lerInteiro(
-                "Concluir o procedimento? (1 para SIM): "
-        );
-        if (concluir != 1) {
-            //MenuEntidade.getInstanciaMenuEntidade().escolhaMenuFuncionario();
-            return;
-        }
+        cadastrarPessoaGrafico(func, nome, cpf, email, telefone, logradouro, numero, bairro, cidade, estado, cep);
 
         Repositorio.getInstanciaRepositorio().getListaFuncionarios().add(func);
-        System.out.println("Funcionário cadastrado com sucesso.");
-        System.out.println("==================================================================");
+
+        return idFuncionario;
     }
 
-    public void atualizarFuncionario() {
-        System.out.println("================ATUALIZAR CADASTRO DE FUNCIONÁRIOS=================");
-        int idFuncionario = leitor.lerInteiro(
-                "Informe o ID do funcionário: "
-        );
-        boolean existeFuncionario = false;
+    public boolean cpfJaCadastradoFuncionario(String cpf) {
+        // Pega a lista atual de clientes
+        java.util.List<entidades.Funcionario> funcionario = repositorio.Repositorio.getInstanciaRepositorio().getListaFuncionarios();
 
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFuncionario) {
-                System.out.println("ID: "+func.getIdFuncionario());
-                mostrarDadosPessoa(func);
-                System.out.println("==================================================================");
+        // Limpa pontos e traços do CPF que vem da tela para comparar apenas os números limpos
+        String cpfNovoLimpo = cpf.replaceAll("[^0-9]", "");
 
-                alteraDadosPessoa(func);
-                existeFuncionario = true;
-                System.out.println("Cadastro atualizado com sucesso!");
+        for (entidades.Funcionario func : funcionario) {
+            String cpfExistenteLimpo = func.getCpf().replaceAll("[^0-9]", "");
+
+            if (cpfExistenteLimpo.equals(cpfNovoLimpo)) {
+                return true; // Encontrou um cliente com o mesmo CPF
             }
         }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
-        System.out.println("==================================================================");
+
+        return false; // CPF está livre para cadastro
     }
 
-    public void listarFuncionarios () {
+    public entidades.Funcionario buscarFuncionarioPorIdOuCpf(String tipoBusca, String termo) {
+        java.util.List<entidades.Funcionario> lista = repositorio.Repositorio.getInstanciaRepositorio().getListaFuncionarios();
+
+        for (entidades.Funcionario func : lista) {
+            if (tipoBusca.equals("ID") && String.valueOf(func.getIdentificacao()).equals(termo.trim())) {
+                return func;
+            } else if (tipoBusca.equals("CPF")) {
+                String cpfLista = func.getCpf().replaceAll("[^0-9]", "");
+                String cpfBusca = termo.replaceAll("[^0-9]", "");
+                if (cpfLista.equals(cpfBusca)) {
+                    return func;
+                }
+            }
+        }
+        return null; // Não encontrou
+    }
+
+    public void atualizarFuncionarioGrafico(int id, String nome, String email, String telefone, String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
+
+        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
+            if (func.getIdFuncionario() == id) {
+
+                alteraDadosPessoaGrafico(func, nome, email, telefone, logradouro, numero, bairro, cidade, estado, cep);
+            }
+        }
+    }
+
+    public void listarFuncionarios() {
         System.out.println("=======================LISTA DE FUNCIONÁRIOS=======================");
         for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
             System.out.println("ID Funcionário: " + func.getIdFuncionario());
-            mostrarDadosPessoa(func);
+            //mostrarDadosPessoa(func);
             System.out.println("==================================================================");
         }
     }
 
-    public void consultarFuncionarioNome() { consultarPessoaPorNome(Repositorio.getInstanciaRepositorio().getListaFuncionarios()); }
+    public void consultarFuncionarioNome() {
+        consultarPessoaPorNome(Repositorio.getInstanciaRepositorio().getListaFuncionarios());
+    }
 
     public void consultarFuncionarioCpf() {
         consultarPessoaPorCpf(Repositorio.getInstanciaRepositorio().getListaFuncionarios());
@@ -104,7 +119,7 @@ public class ControladorFuncionario extends ControladorPessoa {
             if (func.isAtivo()) {
                 if (func.getCargo().toLowerCase().contains(cargo.toLowerCase())) {
                     System.out.println("ID Funcionário: " + func.getIdFuncionario());
-                    mostrarDadosPessoa(func);
+                    //mostrarDadosPessoa(func);
                     existeRegistro = true;
                     System.out.println("==================================================================");
                 }
@@ -117,215 +132,61 @@ public class ControladorFuncionario extends ControladorPessoa {
         }
     }
 
-    public void contrataFuncionario() {
-        System.out.println("====================CONTRATAÇÃO DE FUNCIONÁRIO====================");
-        int idFunc = leitor.lerInteiro(
-                "Informe o ID de funcionário cadastrado para efetuar contratação: "
-        );
+    public boolean contratarFuncionario(
+            Funcionario func,
+            String cargo,
+            double salario,
+            LocalDate data,
+            String login,
+            String senha) {
 
-        boolean existeFuncionario = false;
+        // Verifica se o login está disponível
+        boolean loginOk = ControladorLogin.getInstanciaControladorLogin()
+                .loginDisponivel(login);
 
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFunc) {
-                if (!func.isAtivo()) {
-                    existeFuncionario = true;
-                    LocalDate data = leitor.lerData(
-                            "Qual a data de contratação efetiva do funcionário? (dd/mm/aaaa): "
-                    );
-                    func.setDataAdmissao(data);
-                    func.setAtivo(true);
-
-                    String cargo;
-                    while (true) {
-                        int escolhaCargo = leitor.lerInteiro(
-                                "1 - Vendedor\n2 - Gerente de Vendas\n3 - Estoquista\n4 - Gerente de Estoque\nQual o cargo para qual o funcionário foi contratado? "
-                            );
-                        if (escolhaCargo == 1) {
-                            cargo = "vendedor";
-                            break;
-                        } else if (escolhaCargo == 2) {
-                            cargo = "gerente de vendas";
-                            break;
-                        } else if (escolhaCargo == 3) {
-                            cargo = "estoquista";
-                            break;
-                        } else if (escolhaCargo == 4) {
-                            cargo = "gerente de estoque";
-                            break;
-                        } else {
-                            System.out.print("Escolha inválida. ");
-                        }
-                    }
-                    func.setCargo(cargo);
-
-                    double salario = leitor.lerDouble(
-                            "Qual será o salário do funcionário? "
-                    );
-                    func.setSalario(salario);
-
-                    ControladorLogin.getInstanciaControladorLogin().cadastrarAcesso(func, Repositorio.getInstanciaRepositorio().getListaFuncionarios());
-                    System.out.println("Funcionário contratado com sucesso.");
-                } else {
-                    System.out.println("O funcionário contratado com data de admissão em " + func.getDataAdmissao().format(formatador) + ".");
-                }
-            }
+        if (!loginOk) {
+            return false;
         }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
+
+        // Contrata
+        func.setAtivo(true);
+        func.setCargo(cargo);
+        func.setSalario(salario);
+        func.setDataAdmissao(data);
+
+        // Agora que o cargo existe, cadastra o acesso
+        ControladorLogin.getInstanciaControladorLogin()
+                .cadastrarAcesso(func, login, senha);
+
+        return true;
     }
 
-    public void alteraCargo() {
-        System.out.println("======================MUDANÇA DE CARGO DE FUNCIONÁRIO=====================");
-        int idFunc = leitor.lerInteiro(
-                "Informe o ID de funcionário para mudança de cargo: "
-        );
-        boolean existeFuncionario = false;
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFunc) {
-                if (func.isAtivo()) {
-                    String cargo;
-                    String novoAcesso;
-                    while (true) {
-                        int escolhaCargo = leitor.lerInteiro(
-                                "1 - Vendedor\n2 - Gerente de Vendas\n3 - Estoquista\n4 - Gerente de Estoque\nQual o novo cargo do funcionário? "
-                        );
-                        if (escolhaCargo == 1) {
-                            cargo = "vendedor";
-                            novoAcesso = "14";
-                            break;
-                        } else if (escolhaCargo == 2) {
-                            cargo = "gerente de vendas";
-                            novoAcesso = "1234";
-                            break;
-                        } else if (escolhaCargo == 3) {
-                            cargo = "estoquista";
-                            novoAcesso = "35";
-                            break;
-                        } else if (escolhaCargo == 4) {
-                            cargo = "gerente de estoque";
-                            novoAcesso = "235";
-                            break;
-                        } else {
-                            System.out.print("Escolha inválida. ");
-                        }
-                    }
-                    func.setCargo(cargo);
-                    func.setNivelAcesso(novoAcesso);
-                    System.out.println("Cargo de funcionário alterado com sucesso.");
-                } else {
-                    System.out.println("O funcionário não está contratado.");
-                }
-                existeFuncionario = true;
-            }
-        }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
+    public void alteraCargo(Funcionario func, String cargo) {
+        func.setCargo(cargo);
+        ControladorLogin.getInstanciaControladorLogin().alterarNivelAcesso(func);
     }
 
-    public void alteraSalario() {
-        System.out.println("========================MUDANÇA DE SALÁRIO========================");
-        int idFunc = leitor.lerInteiro(
-                "Informe o ID de funcionário para mudança de salário: "
-        );
-        boolean existeFuncionario = false;
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFunc) {
-                if (func.isAtivo()) {
-                    double salario = leitor.lerDouble(
-                            "Qual será o novo salário do funcionário? "
-                    );
-                    func.setSalario(salario);
-                    System.out.println("Mudança de salário efetuada com sucesso.");
-                } else {
-                    System.out.println("O funcionário não está contratado.");
-                }
-                existeFuncionario = true;
-            }
-        }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
+    public void alteraSalario(Funcionario func, double salario) {
+        func.setSalario(salario);
     }
 
-    public void desligaFuncionario() {
-        System.out.println("====================DESLIGAMENTO DE FUNCIONÁRIO===================");
-        int idFunc = leitor.lerInteiro(
-                "Informe o ID de funcionário para desligamento: "
-        );
-        boolean existeFuncionario = false;
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFunc) {
-                if (func.isAtivo()) {
-                    LocalDate data = leitor.lerData(
-                            "Informe a data de desligamento (dd/mm/aaaa): "
-                    );
-                    func.setDataDemissao(data);
-                    func.setAtivo(false);
-                    System.out.println("Funcionário desligado com sucesso.");
-                } else {
-                    System.out.println("O funcionário não está contratado.");
-                }
-                existeFuncionario = true;
-            }
-        }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
+    public void desligaFuncionario(Funcionario func, LocalDate data) {
+        func.setDataDemissao(data);
+        func.setAtivo(false);
     }
 
-    public void atualizarAcesso() {
-        System.out.println("===============ATUALIZAÇÃO DE ACESSO DE FUNCIONÁRIO===============");
-        int idFuncionario = leitor.lerInteiro(
-                "Informe o ID do funcionário: "
-        );
-        boolean existeFuncionario = false;
-        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (func.getIdFuncionario() == idFuncionario) {
-                if (func.isAtivo()) {
-                    System.out.println("ID do funcionário: "+func.getIdFuncionario());
-                    mostrarDadosPessoa(func);
+    public boolean atualizarAcesso(Funcionario func, String login, String senha) {
+        // Verifica se o login está disponível
+        boolean loginOk = ControladorLogin.getInstanciaControladorLogin()
+                .loginDisponivel(login);
 
-                    System.out.println("==================================================================");
-
-                    ControladorLogin.getInstanciaControladorLogin().alterarAcesso(func, Repositorio.getInstanciaRepositorio().getListaFuncionarios());
-                    System.out.println("Acesso atualizado com sucesso!");
-                    System.out.println("ID: "+func.getIdFuncionario());
-                    ControladorLogin.getInstanciaControladorLogin().mostrarAcesso(func);
-                } else {
-                    System.out.println("Funcionário não está contratado.");
-                }
-                existeFuncionario = true;
-            }
+        if (!loginOk) {
+            return false;
         }
-        if (!existeFuncionario) {
-            System.out.println("ID de funcionário não existe.");
-        }
-        System.out.println("==================================================================");
-    }
-
-    @Override
-    public void mostrarDadosPessoa(Pessoa p) {
-        super.mostrarDadosPessoa(p);
-        Funcionario func = (Funcionario) p;
-        if (func.isAtivo()) {
-            System.out.println("Situação: Ativo");
-            System.out.println("Cargo: " + func.getCargo());
-            if (func.getCargo().equals("vendedor") && func.getcomissaoVendedor() != null) {
-                System.out.printf("Salário: R$ %.2f%n",(func.getSalario() + func.getcomissaoVendedor()));
-            } else {
-                System.out.printf("Salário: R$ %.2f%n", func.getSalario());
-            }
-            System.out.println("Data de admissão: " + func.getDataAdmissao().format(formatador));
-            if (func.getDataDemissao() != null) {
-                System.out.println("Data de demissão: " + func.getDataDemissao().format(formatador));
-            }
-            System.out.println("Login: " + func.getLogin());
-            System.out.println("Senha: " + func.getSenha());
-            System.out.println("Acesso: " + func.getNivelAcesso());
-        } else {
-            System.out.println("Situação: Inativo");
-        }
+        
+        ControladorLogin.getInstanciaControladorLogin()
+                .alterarAcesso(func, login, senha);
+        
+        return true;
     }
 }

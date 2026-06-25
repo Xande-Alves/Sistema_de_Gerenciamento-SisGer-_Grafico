@@ -69,7 +69,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jTextFieldBairroCli = new javax.swing.JTextField();
         jTextFieldCidadeCli = new javax.swing.JTextField();
         jComboBoxEstadoCli = new javax.swing.JComboBox<>();
-        jButtonVoltarCli = new javax.swing.JButton();
         jButtonCadastrarCli = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
         jFormattedTextFieldCpfCli = new javax.swing.JFormattedTextField();
@@ -130,10 +129,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         jComboBoxEstadoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Selecione --", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
-        jButtonVoltarCli.setBackground(new java.awt.Color(255, 51, 51));
-        jButtonVoltarCli.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonVoltarCli.setText("Voltar");
-
         jButtonCadastrarCli.setBackground(new java.awt.Color(102, 102, 255));
         jButtonCadastrarCli.setForeground(new java.awt.Color(0, 0, 0));
         jButtonCadastrarCli.setText("Cadastrar");
@@ -176,16 +171,13 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                             .addComponent(jFormattedTextFieldTelefoneCli))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 111, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButtonVoltarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82)
-                                .addComponent(jButtonCadastrarCli)
-                                .addGap(41, 41, 41))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelTitulo)
-                                .addGap(115, 115, 115))))))
+                        .addGap(0, 116, Short.MAX_VALUE)
+                        .addComponent(jLabelTitulo)
+                        .addGap(115, 115, 115))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonCadastrarCli)
+                .addGap(132, 132, 132))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,17 +225,39 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                     .addComponent(jLabelCepCli)
                     .addComponent(jFormattedTextFieldCepCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonVoltarCli)
-                    .addComponent(jButtonCadastrarCli))
+                .addComponent(jButtonCadastrarCli)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarCliActionPerformed
-        String nome = jTextFieldNomeCli.getText();
-        String cpf = jFormattedTextFieldCpfCli.getText();
-        String email = jTextFieldEmailCli.getText();
+        String nome = jTextFieldNomeCli.getText().trim();
+        String cpf = jFormattedTextFieldCpfCli.getText().trim();
+        String email = jTextFieldEmailCli.getText().trim();
+        String telefone = jFormattedTextFieldTelefoneCli.getText().trim();
+        String logradouro = jTextFieldLogradouroCli.getText().trim();
+        String numero = jTextFieldNumeroCli.getText().trim();
+        String bairro = jTextFieldBairroCli.getText().trim();
+        String cidade = jTextFieldCidadeCli.getText().trim();
+        String cep = jFormattedTextFieldCepCli.getText().trim();
+
+        // Pega o índice selecionado no ComboBox do Estado
+        int estadoIndex = jComboBoxEstadoCli.getSelectedIndex();
+
+        // =================================================================
+        // VALIDAÇÃO: VERIFICAÇÃO DE CAMPOS VAZIOS OU NÃO SELECIONADOS
+        // =================================================================
+        // Verifica se os campos de texto estão vazios ou se as máscaras só têm os caracteres padrões (Ex: "___.___.___-__")
+        if (nome.isEmpty() || email.isEmpty() || logradouro.isEmpty() || numero.isEmpty()
+                || bairro.isEmpty() || cidade.isEmpty() || estadoIndex == 0
+                || cpf.equals("___.___.___-__") || telefone.equals("(__) _____-____") || cep.equals("_____-___")) {
+
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Por favor, preencha todos os campos obrigatórios e selecione o Estado!",
+                    "Campos Incompletos",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução aqui se faltar algo
+        }
 
         // Expressão regular padrão para validar se o e-mail possui um formato válido
         String regexEmail = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -260,13 +274,21 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             return;
         }
 
-        String telefone = jFormattedTextFieldTelefoneCli.getText();
-        String logradouro = jTextFieldLogradouroCli.getText();
-        String numero = jTextFieldNumeroCli.getText();
-        String bairro = jTextFieldBairroCli.getText();
-        String cidade = jTextFieldCidadeCli.getText();
+        // =================================================================
+        // NOVA VALIDAÇÃO: VERIFICAÇÃO DE CPF DUPLICADO
+        // =================================================================
+        if (ControladorCliente.getInstanciaControladorCliente().cpfJaCadastradoCliente(cpf)) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "O CPF informado (" + cpf + ") já está vinculado a um cliente cadastrado!",
+                    "CPF Duplicado",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+
+            jFormattedTextFieldCpfCli.requestFocus(); // Foca o cursor no campo do CPF
+            return; // Interrompe o método AQUI.
+        }
+        // =================================================================
+
         String estado = jComboBoxEstadoCli.getSelectedItem().toString();
-        String cep = jFormattedTextFieldCepCli.getText();
 
         // 1. Envia os dados para salvar
         int idCliente = ControladorCliente.getInstanciaControladorCliente().cadastrarClienteGrafico(nome, cpf, email, telefone, logradouro, numero, bairro, cidade, estado, cep);
@@ -277,7 +299,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         // 2. Mostra a caixinha de aviso de Sucesso
         javax.swing.JOptionPane.showMessageDialog(
                 this,
-                "Cliente '" + nome + "' cadastrado com sucesso no ID "+idCliente,
+                "Cliente '" + nome + "' cadastrado com sucesso no ID " + idCliente,
                 "Sucesso",
                 javax.swing.JOptionPane.INFORMATION_MESSAGE
         );
@@ -301,7 +323,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarCli;
-    private javax.swing.JButton jButtonVoltarCli;
     private javax.swing.JComboBox<String> jComboBoxEstadoCli;
     private javax.swing.JFormattedTextField jFormattedTextFieldCepCli;
     private javax.swing.JFormattedTextField jFormattedTextFieldCpfCli;

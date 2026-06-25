@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view.telasCliente;
+import view.TelaEscolhaModulo;
 
 /**
  *
@@ -12,31 +13,30 @@ public class TelaMenuCliente extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaMenuCliente.class.getName());
 
-    
     public TelaMenuCliente() {
         initComponents();
-        
+
         // 1. Maximiza a janela
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        
+
         // =================================================================
         // CENTRALIZAÇÃO HORIZONTAL DO MENU LATERAL (jPanelMenu1)
         // =================================================================
         jPanelMenu1.setLayout(new javax.swing.BoxLayout(jPanelMenu1, javax.swing.BoxLayout.Y_AXIS));
-        
+
         float centroX = java.awt.Component.CENTER_ALIGNMENT;
-        
+
         // --- DEFINE UMA LARGURA PADRÃO PARA TODOS OS BOTÕES ---
         // 140 pixels de largura por 30 pixels de altura (ajuste como preferir)
         java.awt.Dimension tamanhoBotao = new java.awt.Dimension(140, 30);
-        
+
         jButtonCadastrarCli1.setMaximumSize(tamanhoBotao);
         jButtonAtualizarCli1.setMaximumSize(tamanhoBotao);
         jButtonConsultarCli1.setMaximumSize(tamanhoBotao);
         jButtonListarCli1.setMaximumSize(tamanhoBotao);
         jButtonSairCli1.setMaximumSize(tamanhoBotao);
         // -----------------------------------------------------
-        
+
         // Aplica o alinhamento horizontal no centro para cada componente
         jLabelMenu1.setAlignmentX(centroX);
         jButtonCadastrarCli1.setAlignmentX(centroX);
@@ -44,12 +44,12 @@ public class TelaMenuCliente extends javax.swing.JFrame {
         jButtonConsultarCli1.setAlignmentX(centroX);
         jButtonListarCli1.setAlignmentX(centroX);
         jButtonSairCli1.setAlignmentX(centroX);
-        
+
         // Reconstrói o menu adicionando pequenos espaçamentos verticais entre eles
         jPanelMenu1.removeAll();
-        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(15)); 
+        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(10));
         jPanelMenu1.add(jLabelMenu1);
-        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(20)); 
+        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(10));
         jPanelMenu1.add(jButtonCadastrarCli1);
         jPanelMenu1.add(javax.swing.Box.createVerticalStrut(10));
         jPanelMenu1.add(jButtonAtualizarCli1);
@@ -57,21 +57,21 @@ public class TelaMenuCliente extends javax.swing.JFrame {
         jPanelMenu1.add(jButtonConsultarCli1);
         jPanelMenu1.add(javax.swing.Box.createVerticalStrut(10));
         jPanelMenu1.add(jButtonListarCli1);
-        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(15));
+        jPanelMenu1.add(javax.swing.Box.createVerticalStrut(10));
         jPanelMenu1.add(jButtonSairCli1);
-        
+
         // =================================================================
         // CENTRALIZAÇÃO HORIZONTAL DA ÁREA DE CONTEÚDO (jPanelTela)
         // =================================================================
         // Mesma lógica: empilha de cima para baixo, centralizado na horizontal
         jPanelTela.setLayout(new javax.swing.BoxLayout(jPanelTela, javax.swing.BoxLayout.Y_AXIS));
-        
+
         jLabelBemVindoCli.setAlignmentX(centroX);
-        
+
         jPanelTela.removeAll();
         jPanelTela.add(javax.swing.Box.createVerticalStrut(20)); // Margem do topo da tela
         jPanelTela.add(jLabelBemVindoCli);
-        
+
         // Força a atualização do layout
         jPanel1.revalidate();
         jPanel1.repaint();
@@ -105,20 +105,33 @@ public class TelaMenuCliente extends javax.swing.JFrame {
 
         jLabelMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabelMenu1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMenu1.setText("MENU");
 
-        jButtonCadastrarCli1.setText("Cadastrar clientes");
+        jButtonCadastrarCli1.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonCadastrarCli1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCadastrarCli1.setText("Cadastrar");
         jButtonCadastrarCli1.addActionListener(this::jButtonCadastrarCli1ActionPerformed);
 
-        jButtonAtualizarCli1.setText("Atualizar clientes");
+        jButtonAtualizarCli1.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonAtualizarCli1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAtualizarCli1.setText("Atualizar");
+        jButtonAtualizarCli1.addActionListener(this::jButtonAtualizarCli1ActionPerformed);
 
-        jButtonConsultarCli1.setText("Consultar clientes");
+        jButtonConsultarCli1.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonConsultarCli1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonConsultarCli1.setText("Consultar");
+        jButtonConsultarCli1.addActionListener(this::jButtonConsultarCli1ActionPerformed);
 
-        jButtonListarCli1.setText("Listar clientes");
+        jButtonListarCli1.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonListarCli1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonListarCli1.setText("Listar");
         jButtonListarCli1.addActionListener(this::jButtonListarCli1ActionPerformed);
 
         jButtonSairCli1.setBackground(new java.awt.Color(255, 51, 51));
+        jButtonSairCli1.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSairCli1.setText("Sair");
+        jButtonSairCli1.addActionListener(this::jButtonSairCli1ActionPerformed);
 
         javax.swing.GroupLayout jPanelMenu1Layout = new javax.swing.GroupLayout(jPanelMenu1);
         jPanelMenu1.setLayout(jPanelMenu1Layout);
@@ -133,10 +146,7 @@ public class TelaMenuCliente extends javax.swing.JFrame {
                     .addComponent(jButtonListarCli1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSairCli1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(9, 9, 9))
-            .addGroup(jPanelMenu1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabelMenu1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabelMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelMenu1Layout.setVerticalGroup(
             jPanelMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,18 +170,16 @@ public class TelaMenuCliente extends javax.swing.JFrame {
 
         jPanelTela.setBackground(new java.awt.Color(153, 153, 255));
 
-        jLabelBemVindoCli.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelBemVindoCli.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabelBemVindoCli.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelBemVindoCli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBemVindoCli.setText("Bem vindo ao módulo Clientes");
 
         javax.swing.GroupLayout jPanelTelaLayout = new javax.swing.GroupLayout(jPanelTela);
         jPanelTela.setLayout(jPanelTelaLayout);
         jPanelTelaLayout.setHorizontalGroup(
             jPanelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTelaLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(jLabelBemVindoCli)
-                .addGap(36, 36, 36))
+            .addComponent(jLabelBemVindoCli, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
         );
         jPanelTelaLayout.setVerticalGroup(
             jPanelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,36 +208,36 @@ public class TelaMenuCliente extends javax.swing.JFrame {
     private void jButtonCadastrarCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarCli1ActionPerformed
         // 1. Limpa o painel principal da direita
         jPanelTela.removeAll();
-        
+
         // 2. Define o layout do jPanelTela para GridBagLayout (ele vai garantir a centralização)
         jPanelTela.setLayout(new java.awt.GridBagLayout());
-        
+
         // 3. Instancia a tela de cadastro normalmente
         TelaCadastroCliente telaCadastro = new TelaCadastroCliente();
-        
+
         // 4. Cria um painel intermediário invisível para limitar a largura do formulário
         javax.swing.JPanel limitadorLargura = new javax.swing.JPanel();
         limitadorLargura.setLayout(new java.awt.BorderLayout());
         limitadorLargura.setBackground(telaCadastro.getBackground()); // Mantém a cor azul de fundo
-        
+
         // Define o tamanho máximo desejado (450px de largura por 420px de altura)
         java.awt.Dimension tamanhoMaximo = new java.awt.Dimension(450, 420);
         limitadorLargura.setPreferredSize(tamanhoMaximo);
         limitadorLargura.setMinimumSize(tamanhoMaximo);
         limitadorLargura.setMaximumSize(tamanhoMaximo);
-        
+
         // 5. Adiciona a tela de cadastro para preencher esse limitador
         limitadorLargura.add(telaCadastro, java.awt.BorderLayout.CENTER);
-        
+
         // 6. Configura o GridBagLayout para fixar o limitador morto no centro do jPanelTela
         java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = java.awt.GridBagConstraints.CENTER; // Força a centralização horizontal e vertical
-        
+
         // Adiciona o bloco estruturado ao painel principal
         jPanelTela.add(limitadorLargura, gbc);
-        
+
         // 7. Atualiza e renderiza os novos componentes na interface
         jPanelTela.revalidate();
         jPanelTela.repaint();
@@ -238,21 +246,106 @@ public class TelaMenuCliente extends javax.swing.JFrame {
     private void jButtonListarCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarCli1ActionPerformed
         // 1. Limpa a área de conteúdo atual
         jPanelTela.removeAll();
-        
+
         // 2. Define o layout como BorderLayout para a tabela expandir e ocupar o espaço útil da direita
         jPanelTela.setLayout(new java.awt.BorderLayout());
-        
+
         // 3. Instancia a tela de listagem que criamos
         TelaListarClientes telaListar = new TelaListarClientes();
-        
+
         // 4. Adiciona ao centro do painel com uma pequena borda de respiro (margem nas laterais)
         telaListar.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
         jPanelTela.add(telaListar, java.awt.BorderLayout.CENTER);
-        
+
         // 5. Atualiza e redesenha a tela
         jPanelTela.revalidate();
         jPanelTela.repaint();
     }//GEN-LAST:event_jButtonListarCli1ActionPerformed
+
+    private void jButtonAtualizarCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarCli1ActionPerformed
+        // 1. Limpa o painel principal da direita
+        jPanelTela.removeAll();
+
+        // 2. Define o layout do jPanelTela para GridBagLayout (garante a centralização)
+        jPanelTela.setLayout(new java.awt.GridBagLayout());
+
+        // 3. Instancia a tela de atualização 
+        TelaAtualizarClientes telaAtualizar = new TelaAtualizarClientes();
+
+        // 4. Cria um painel intermediário invisível para limitar a largura do formulário
+        javax.swing.JPanel limitadorLargura = new javax.swing.JPanel();
+        limitadorLargura.setLayout(new java.awt.BorderLayout());
+        limitadorLargura.setBackground(telaAtualizar.getBackground()); // Mantém a cor de fundo padrão da tela
+
+        // Define o tamanho máximo desejado (mesmo padrão de 450px por 420px usado no cadastro)
+        java.awt.Dimension tamanhoMaximo = new java.awt.Dimension(450, 500);
+        limitadorLargura.setPreferredSize(tamanhoMaximo);
+        limitadorLargura.setMinimumSize(tamanhoMaximo);
+        limitadorLargura.setMaximumSize(tamanhoMaximo);
+
+        // 5. Adiciona a tela de atualização para preencher esse limitador
+        limitadorLargura.add(telaAtualizar, java.awt.BorderLayout.CENTER);
+
+        // 6. Configura o GridBagLayout para fixar o limitador morto no centro do jPanelTela
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = java.awt.GridBagConstraints.CENTER; // Força a centralização horizontal e vertical
+
+        // Adiciona o bloco estruturado ao painel principal
+        jPanelTela.add(limitadorLargura, gbc);
+
+        // 7. Atualiza e renderiza os novos componentes na interface
+        jPanelTela.revalidate();
+        jPanelTela.repaint();
+    }//GEN-LAST:event_jButtonAtualizarCli1ActionPerformed
+
+    private void jButtonConsultarCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarCli1ActionPerformed
+        // 1. Limpa o painel principal da direita
+        jPanelTela.removeAll();
+
+        // 2. Define o layout para GridBagLayout (ele gerencia o alinhamento centralizado perfeitamente)
+        jPanelTela.setLayout(new java.awt.GridBagLayout());
+
+        // 3. Instancia a tela de consulta normalmente
+        TelaConsultaCliente telaConsulta = new TelaConsultaCliente();
+
+        // 4. Configura as regras de posicionamento do GridBagLayout
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        // ATENÇÃO AQUI: Força o painel de consulta a ocupar toda a largura disponível (100%)
+        // mas mantém o ponto de ancoragem centralizado horizontalmente.
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = java.awt.GridBagConstraints.BOTH; // Permite que a tabela cresça para os lados e para baixo
+        gbc.anchor = java.awt.GridBagConstraints.CENTER;
+
+        // Adiciona uma margem de respiro nas laterais e no topo (20 pixels)
+        gbc.insets = new java.awt.Insets(20, 20, 20, 20);
+
+        // 5. Adiciona a tela configurada ao painel principal
+        jPanelTela.add(telaConsulta, gbc);
+
+        // 6. Atualiza e renderiza a interface na tela
+        jPanelTela.revalidate();
+        jPanelTela.repaint();
+    }//GEN-LAST:event_jButtonConsultarCli1ActionPerformed
+
+    private void jButtonSairCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairCli1ActionPerformed
+        // 1. Instancia a tela de escolha de módulos
+        TelaEscolhaModulo telaModulo = new TelaEscolhaModulo();
+
+        // 2. Torna a nova janela visível
+        telaModulo.setVisible(true);
+
+        // 3. Centraliza a nova janela no meio do ecrã/monitor
+        telaModulo.setLocationRelativeTo(null);
+
+        // 4. Fecha e destrói o JFrame atual do Menu do Cliente
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairCli1ActionPerformed
 
     /**
      * @param args the command line arguments

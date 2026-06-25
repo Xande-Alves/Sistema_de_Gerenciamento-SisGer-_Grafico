@@ -27,69 +27,56 @@ public class ControladorLogin {
         return controladorLoginInstancia;
     }
 
-    public void cadastrarAcesso(Funcionario func, List<Funcionario> listaFunc) {
-        while (true) {
-            boolean aceite = true;
-            String login = leitor.lerTexto("Digite o login do funcionário: ");
-            for (Funcionario f : listaFunc) {
-                if (Objects.equals(f.getLogin(), login) || Objects.equals(login, "adm")) {
-                    System.out.println("Login já está em uso. Digite outro login.");
-                    aceite = false;
-                    break;
-                }
-            }
-            if (aceite) {
-                func.setLogin(login);
-                break;
+    public boolean loginDisponivel(String login) {
+        for (Funcionario func : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
+            if (Objects.equals(func.getLogin(), login)
+                    || Objects.equals(login, "adm")) {
+                return false;
             }
         }
-        String senha = leitor.lerTexto("Digite a senha do funcionário: ");
+        return true;
+    }
+
+    public void cadastrarAcesso(Funcionario func, String login, String senha) {
+
+        func.setLogin(login);
         func.setSenha(senha);
+
         String acesso = switch (func.getCargo()) {
-            case "vendedor" ->
+            case "Vendedor" ->
                 "14";
-            case "gerente de vendas" ->
+            case "Gerente de Vendas" ->
                 "1234";
-            case "estoquista" ->
+            case "Estoquista" ->
                 "35";
-            case "gerente de estoque" ->
+            case "Gerente de Estoque" ->
                 "235";
-            case null, default ->
+            default ->
+                "";
+        };
+
+        func.setNivelAcesso(acesso);
+    }
+    
+    public void alterarNivelAcesso(Funcionario func) {
+        String acesso = switch (func.getCargo()) {
+            case "Vendedor" ->
+                "14";
+            case "Gerente de Vendas" ->
+                "1234";
+            case "Estoquista" ->
+                "35";
+            case "Gerente de Estoque" ->
+                "235";
+            default ->
                 "";
         };
         func.setNivelAcesso(acesso);
     }
 
-    public void alterarAcesso(Funcionario func, List<Funcionario> listaFunc) {
-        while (true) {
-            boolean aceite = true;
-            String novoLogin = leitor.lerTexto("Digite o novo login do funcionário: ");
-            for (Funcionario f : listaFunc) {
-                if (Objects.equals(f.getLogin(), novoLogin) || Objects.equals(novoLogin, "adm")) {
-                    System.out.println("Login já está em uso. Digite outro login.");
-                    aceite = false;
-                }
-            }
-            if (aceite) {
-                func.setLogin(novoLogin);
-                break;
-            }
-        }
-        String novaSenha = leitor.lerTexto("Qual a nova senha do funcionário? ");
-        func.setSenha(novaSenha);
-        String novoAcesso = switch (func.getCargo()) {
-            case "vendedor" ->
-                "14";
-            case "gerente de vendas" ->
-                "1234";
-            case "estoquista" ->
-                "35";
-            case "gerente de estoque" ->
-                "235";
-            case null, default ->
-                "";
-        };
-        func.setNivelAcesso(novoAcesso);
+    public void alterarAcesso(Funcionario func, String login, String senha) {
+        func.setLogin(login);
+        func.setSenha(senha);
     }
 
     public void mostrarAcesso(Funcionario func) {
