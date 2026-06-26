@@ -18,7 +18,7 @@ public class Fornecedor extends Pessoa {
 
     @Override
     public String getIdentificacao() {
-        return "ID entidades.Fornecedor: " + getIdFornecedor();
+        return "" + getIdFornecedor();
     }
 
     public String getRepresentaEmpresaNome() {

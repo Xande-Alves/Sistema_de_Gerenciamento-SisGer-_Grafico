@@ -6,6 +6,7 @@ package view;
 
 import view.telasCliente.TelaMenuCliente;
 import view.telasFuncionario.TelaMenuFuncionario;
+import view.telasProduto.TelaMenuProduto;
 
 /**
  *
@@ -82,6 +83,7 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         jButtonProduto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonProduto.setForeground(new java.awt.Color(0, 0, 0));
         jButtonProduto.setText("Produto");
+        jButtonProduto.addActionListener(this::jButtonProdutoActionPerformed);
 
         jButtonCliente.setBackground(new java.awt.Color(102, 102, 255));
         jButtonCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -93,6 +95,7 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         jButtonSair.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonSair.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(this::jButtonSairActionPerformed);
 
         jButtonVenda.setBackground(new java.awt.Color(102, 102, 255));
         jButtonVenda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -176,6 +179,27 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         telaMenuFuncionario.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButtonFuncionarioActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        // 1. Instancia a tela de escolha de módulos
+        TelaInicial telaInicial = new TelaInicial();
+
+        // 2. Torna a nova janela visível
+        telaInicial.setVisible(true);
+
+        // 3. Centraliza a nova janela no meio do ecrã/monitor
+        telaInicial.setLocationRelativeTo(null);
+
+        // 4. Fecha e destrói o JFrame atual do Menu do Funcionario
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButtonProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProdutoActionPerformed
+        TelaMenuProduto telaMenuProduto = new TelaMenuProduto();
+        telaMenuProduto.setVisible(true);
+        telaMenuProduto.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButtonProdutoActionPerformed
 
     /**
      * @param args the command line arguments

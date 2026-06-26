@@ -29,7 +29,7 @@ public class TelaContrataFuncionario extends javax.swing.JPanel {
         java.awt.GridBagConstraints constraints = layout.getConstraints(jFormattedTextFieldBusca);
 
         // Mudamos o preenchimento interno (ipadx) de 32 para 150 (alarga o campo)
-        constraints.ipadx = 150;
+        constraints.ipadx = 90;
 
         // Reaplicamos as novas restrições modificadas ao componente
         layout.setConstraints(jFormattedTextFieldBusca, constraints);

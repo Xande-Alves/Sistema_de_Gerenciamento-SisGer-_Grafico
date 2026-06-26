@@ -358,6 +358,8 @@ public class TelaMenuFuncionario extends javax.swing.JFrame {
 
         // 3. Instancia a tela de consulta normalmente
         TelaConsultaFuncionario telaConsulta = new TelaConsultaFuncionario();
+        
+        telaConsulta.popularTabelaFuncionarios();
 
         // 4. Configura as regras de posicionamento do GridBagLayout
         java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
@@ -391,11 +393,9 @@ public class TelaMenuFuncionario extends javax.swing.JFrame {
 
         // 3. Instancia a tela de listagem que criamos
         TelaListarFuncionarios telaListar = new TelaListarFuncionarios();
-        TelaConsultaFuncionario telaConsulta = new TelaConsultaFuncionario();
         
         // CORREÇÃO AQUI: Força a tabela a reler os dados novos do repositório antes de desenhar
         telaListar.carregarTabela();
-        telaConsulta.popularTabelaFuncionarios();
 
         // 4. Adiciona ao centro do painel com uma pequena borda de respiro (margem nas laterais)
         telaListar.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));

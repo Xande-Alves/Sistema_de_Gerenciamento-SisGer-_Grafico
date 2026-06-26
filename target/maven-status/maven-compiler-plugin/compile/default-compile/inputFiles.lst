@@ -26,6 +26,10 @@ C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasCliente\
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasCliente\TelaConsultaCliente.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasCliente\TelaListarClientes.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasCliente\TelaMenuCliente.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFornecedor\TelaAtualizarFornecedor.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFornecedor\TelaCadastrarFornecedor.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFornecedor\TelaConsultarFornecedor.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFornecedor\TelaListarFornecedor.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaAtualizaAcesso.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaAtualizarFuncionarios.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaCadastroFuncionario.java
@@ -36,3 +40,8 @@ C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFunciona
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaListarFuncionarios.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaMenuFuncionario.java
 C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasFuncionario\TelaSalarioFuncionario.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasProduto\TelaAtualizarProdutos.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasProduto\TelaCadastrarProdutos.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasProduto\TelaConsultarProdutos.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasProduto\TelaListarProdutos.java
+C:\Users\User\Documents\NetBeansProjects\sisGer\src\main\java\view\telasProduto\TelaMenuProduto.java

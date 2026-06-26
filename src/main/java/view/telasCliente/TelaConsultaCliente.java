@@ -77,7 +77,7 @@ public class TelaConsultaCliente extends javax.swing.JPanel {
         ((javax.swing.table.DefaultTableModel) jTableListaClientes.getModel()).setRowCount(0);
     }
 
-    private void popularTabelaClientes() {
+    public void popularTabelaClientes() {
         // 1. Pega o modelo da tabela e limpa qualquer linha residual que venha do design
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTableListaClientes.getModel();
         modelo.setRowCount(0);

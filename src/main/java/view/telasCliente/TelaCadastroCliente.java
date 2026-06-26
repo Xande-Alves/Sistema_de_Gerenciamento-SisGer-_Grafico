@@ -131,7 +131,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         jButtonCadastrarCli.setBackground(new java.awt.Color(102, 102, 255));
         jButtonCadastrarCli.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonCadastrarCli.setText("Cadastrar");
+        jButtonCadastrarCli.setText("Cadastrar cliente");
         jButtonCadastrarCli.addActionListener(this::jButtonCadastrarCliActionPerformed);
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -174,10 +174,10 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                         .addGap(0, 116, Short.MAX_VALUE)
                         .addComponent(jLabelTitulo)
                         .addGap(115, 115, 115))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(141, 141, 141)
                 .addComponent(jButtonCadastrarCli)
-                .addGap(132, 132, 132))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

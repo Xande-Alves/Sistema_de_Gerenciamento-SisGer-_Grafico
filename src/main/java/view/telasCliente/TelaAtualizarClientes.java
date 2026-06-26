@@ -30,9 +30,6 @@ public class TelaAtualizarClientes extends javax.swing.JPanel {
         configurarEscutadoresDeModificacao();
         configurarEventosBusca();
         
-        // Vincula a ação ao botão buscar que foi criado no design
-        jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
-        
         // O botão de atualizar inicia desativado até que alguma modificação ocorra
         jButtonAtualizarCli.setEnabled(false);
     }

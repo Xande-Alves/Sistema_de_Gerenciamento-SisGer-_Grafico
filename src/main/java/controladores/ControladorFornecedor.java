@@ -24,30 +24,73 @@ public class ControladorFornecedor extends ControladorPessoa{
         return controladorFornecedorInstancia;
     }
 
-    public void cadastrarFornecedor() {
-        System.out.println("======================CADASTRO DE FORNECEDORES====================");
+    public int cadastrarFornecedorGrafico(String nome, String cpf, String email, String telefone, String logradouro, String numero, String bairro, String cidade, String estado, String cep, String razaoSocial, String cnpj) {
         int idFornecedor = Repositorio.getInstanciaRepositorio().getListaFornecedores().size() + 1;
-        Fornecedor fornec = new Fornecedor(idFornecedor,"", "");
-        //cadastrarPessoa(fornec);
-        String nomeEmpresa = leitor.lerTexto("Insira o nome da empresa que o fornecedor representa: ");
-        fornec.setRepresentaEmpresaNome(nomeEmpresa);
 
-        String cnpjEmpresa = leitor.lerCnpj(
-                "Insira o CNPJ da empresa que o fornecedor representa: "
-        );
-        fornec.setRepresentaEmpresaCnpj(cnpjEmpresa);
+        Fornecedor fornec = new Fornecedor(idFornecedor, razaoSocial, cnpj);
 
-        int concluir = leitor.lerInteiro(
-                "Concluir o procedimento? (1 para SIM): "
-        );
-        if (concluir != 1) {
-            //MenuEntidade.getInstanciaMenuEntidade().escolhaMenuProduto();
-            return;
-        }
+        cadastrarPessoaGrafico(fornec, nome, cpf, email, telefone, logradouro, numero, bairro, cidade, estado, cep);
 
         Repositorio.getInstanciaRepositorio().getListaFornecedores().add(fornec);
-        System.out.println("Fornecedor cadastrado com sucesso!");
-        System.out.println("==================================================================");
+
+        return idFornecedor;
+    }
+    
+    public boolean cpfJaCadastradoFornecedor(String cpf) {
+        // Pega a lista atual de clientes
+        java.util.List<entidades.Fornecedor> fornecedores = repositorio.Repositorio.getInstanciaRepositorio().getListaFornecedores();
+
+        // Limpa pontos e traços do CPF que vem da tela para comparar apenas os números limpos
+        String cpfNovoLimpo = cpf.replaceAll("[^0-9]", "");
+
+        for (entidades.Fornecedor fornec : fornecedores) {
+            String cpfExistenteLimpo = fornec.getCpf().replaceAll("[^0-9]", "");
+
+            if (cpfExistenteLimpo.equals(cpfNovoLimpo)) {
+                return true; // Encontrou um cliente com o mesmo CPF
+            }
+        }
+
+        return false; // CPF está livre para cadastro
+    }
+    
+    public boolean existeFornecedor (int idfornecedor) {
+        for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
+            if (fornec.getIdFornecedor() == idfornecedor) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public entidades.Fornecedor buscarFornecedorPorIdOuCpf(String tipoBusca, String termo) {
+        java.util.List<entidades.Fornecedor> lista = repositorio.Repositorio.getInstanciaRepositorio().getListaFornecedores();
+
+        for (entidades.Fornecedor fornec : lista) {
+            if (tipoBusca.equals("ID") && String.valueOf(fornec.getIdentificacao()).equals(termo.trim())) {
+                return fornec;
+            } else if (tipoBusca.equals("CPF")) {
+                String cpfLista = fornec.getCpf().replaceAll("[^0-9]", "");
+                String cpfBusca = termo.replaceAll("[^0-9]", "");
+                if (cpfLista.equals(cpfBusca)) {
+                    return fornec;
+                }
+            }
+        }
+        return null; // Não encontrou
+    }
+
+    public void atualizarFornecedorGrafico(int id, String nome, String email, String telefone, String logradouro, String numero, String bairro, String cidade, String estado, String cep, String razaoSocial, String cnpj) {
+
+        for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
+            if (fornec.getIdFornecedor()== id) {
+
+                alteraDadosPessoaGrafico(fornec, nome, email, telefone, logradouro, numero, bairro, cidade, estado, cep);
+                fornec.setRepresentaEmpresaNome(razaoSocial);
+                fornec.setRepresentaEmpresaCnpj(cnpj);
+            }
+        }
     }
 
     public void atualizarFornecedor() {

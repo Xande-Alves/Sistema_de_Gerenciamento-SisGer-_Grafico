@@ -24,113 +24,41 @@ public class ControladorProduto {
         return controladorProdutoInstancia;
     }
 
-    public void cadastrarProduto() {
-        System.out.println("=======================CADASTRO DE PRODUTOS=======================");
+    public int cadastrarProduto(int idFornecedor, String nome, String descricao, double precoCompra, double quantidadeEstoque) {
         int idProduto = Repositorio.getInstanciaRepositorio().getListaProduto().size() + 1;
-        boolean existeFornecedor = false;
-
-        int idFornecedor = leitor.lerInteiro(
-                "Informe o ID do fornecedor: "
-        );
-        for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
-            if (fornec.getIdFornecedor() == idFornecedor) {
-                existeFornecedor = true;
-                break;
-            }
-        }
-        if (!existeFornecedor) {
-            System.out.println("ID de fornecedor inexistente.");
-            //MenuEntidade.getInstanciaMenuEntidade().escolhaMenuProduto();
-        }
-        String nome = leitor.lerTexto("Informe o nome do produto: ");
-        String descricao = leitor.lerTexto("Informe a descrição do produto: ");
-        double precoCompra = leitor.lerDouble(
-                "Informe o preço de compra do produto: "
-        );
-
-        double quantidadeEstoque = leitor.lerDouble(
-                "Informe a quantidade de estoque: "
-        );
+        
         Double precoVenda = calculaPrecoVenda(precoCompra);
 
         Produto produto = new Produto(idProduto,idFornecedor,nome,descricao,precoCompra,precoVenda,quantidadeEstoque);
 
-        int concluir = leitor.lerInteiro(
-                "Concluir o procedimento? (1 para SIM): "
-        );
-        if (concluir != 1) {
-            //MenuEntidade.getInstanciaMenuEntidade().escolhaMenuProduto();
-            return;
-        }
-
         Repositorio.getInstanciaRepositorio().getListaProduto().add(produto);
-        System.out.println("Produto cadastrado com sucesso!");
-        System.out.println("==================================================================");
+        
+        return idProduto;
     }
 
-    public void atualizarProduto() {
-        System.out.println("===================ATUALIZAR CADASTRO DE PRODUTO==================");
-        int idProduto = leitor.lerInteiro(
-                "Informe o ID do produto: "
-        );
-        boolean existeProduto = false;
+    public void atualizarProduto(int idProduto, int idFornecedor, String nome, String descricao, double precoCompra, double quantidadeEstoque) {
+        
         for (Produto p : Repositorio.getInstanciaRepositorio().getListaProduto()) {
             if (p.getIdProduto() == idProduto) {
-                mostrarProduto(p);
-                System.out.println("==================================================================");
-
-                int idFornecedorInt;
-                Integer idFornecedor = leitor.lerInteiroOpcional(
-                        "Informe o novo ID do fornecedor (enter para não alterar): "
-                );
-
-                if (idFornecedor != null) {
-                    idFornecedorInt = idFornecedor;
-                } else {
-                    idFornecedorInt = p.getIdFornecedor();
-                }
-
-                boolean existeFornecedor = false;
-                for (Fornecedor fornec : Repositorio.getInstanciaRepositorio().getListaFornecedores()) {
-                    if (idFornecedor == null || (fornec.getIdFornecedor() == idFornecedorInt)) {
-                        existeFornecedor = true;
-                        break;
-                    }
-                }
-                if (!existeFornecedor) {
-                    System.out.println("ID de fornecedor inexistente.");
-                    //MenuEntidade.getInstanciaMenuEntidade().escolhaMenuProduto();
-                    return;
-                }
-                if (idFornecedor != null) {
-                    p.setIdFornecedor(idFornecedorInt);
-                }
-                String nome = leitor.lerTextoOpcional("Informe o novo nome do produto (enter para não alterar): ");
-                if (!nome.isEmpty()) {
-                    p.setNome(nome);
-                }
-                String descricao = leitor.lerTextoOpcional("Informe a nova descrição do produto (enter para não alterar): ");
-                if (!descricao.isEmpty()) {
-                    p.setDescricao(descricao);
-                }
-
-                Double precoCompra = leitor.lerDoubleOpcional(
-                        "Informe o novo preço de compra do produto (enter para não alterar): "
-                );
-                if (precoCompra != null) {
-                    p.setPrecoCompra(precoCompra);
-                    double precoVenda = calculaPrecoVenda(precoCompra);
-                    p.setPrecoVenda(precoVenda);
-                }
-
-                existeProduto = true;
-                System.out.println("Cadastro atualizado com sucesso!");
+                p.setIdFornecedor(idFornecedor);
+                p.setNome(nome);
+                p.setDescricao(descricao);
+                p.setPrecoCompra(precoCompra);
+                double precoVenda = calculaPrecoVenda(precoCompra);
+                p.setPrecoVenda(precoVenda);
+                p.setQuantidadeEstoque(quantidadeEstoque);
             }
         }
-        if (!existeProduto) {
-            System.out.println("ID de produto não existe.");
+    }
+    
+    public Produto buscarProdutos (int idProduto) {
+        for (Produto p : Repositorio.getInstanciaRepositorio().getListaProduto()) {
+            if (p.getIdProduto() == idProduto) {
+                return p;
+            }
         }
-        System.out.println("==================================================================");
+        
+        return null;
     }
 
     public void listarProdutos() {

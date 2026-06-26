@@ -39,7 +39,7 @@ public class TelaListarClientes extends javax.swing.JPanel {
         this.repaint();
     }
     
-    private void carregarTabela() {
+    public void carregarTabela() {
         // 1. Pega a lista de clientes do seu repositório
         java.util.List<entidades.Cliente> lista = repositorio.Repositorio.getInstanciaRepositorio().getListaClientes();
         

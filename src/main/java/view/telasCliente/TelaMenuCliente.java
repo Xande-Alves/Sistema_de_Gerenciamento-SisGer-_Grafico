@@ -252,6 +252,8 @@ public class TelaMenuCliente extends javax.swing.JFrame {
 
         // 3. Instancia a tela de listagem que criamos
         TelaListarClientes telaListar = new TelaListarClientes();
+        
+        telaListar.carregarTabela();
 
         // 4. Adiciona ao centro do painel com uma pequena borda de respiro (margem nas laterais)
         telaListar.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -309,6 +311,8 @@ public class TelaMenuCliente extends javax.swing.JFrame {
 
         // 3. Instancia a tela de consulta normalmente
         TelaConsultaCliente telaConsulta = new TelaConsultaCliente();
+        
+        telaConsulta.popularTabelaClientes();
 
         // 4. Configura as regras de posicionamento do GridBagLayout
         java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
