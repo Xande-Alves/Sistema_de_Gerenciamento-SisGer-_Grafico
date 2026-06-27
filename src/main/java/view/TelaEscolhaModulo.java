@@ -7,6 +7,7 @@ package view;
 import view.telasCliente.TelaMenuCliente;
 import view.telasFuncionario.TelaMenuFuncionario;
 import view.telasProduto.TelaMenuProduto;
+import view.telasVendas.TelaMenuVendas;
 
 /**
  *
@@ -101,6 +102,7 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         jButtonVenda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonVenda.setForeground(new java.awt.Color(0, 0, 0));
         jButtonVenda.setText("Venda");
+        jButtonVenda.addActionListener(this::jButtonVendaActionPerformed);
 
         jButtonEstoque.setBackground(new java.awt.Color(102, 102, 255));
         jButtonEstoque.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -200,6 +202,13 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         telaMenuProduto.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButtonProdutoActionPerformed
+
+    private void jButtonVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendaActionPerformed
+        TelaMenuVendas telaMenuVenda = new TelaMenuVendas();
+        telaMenuVenda.setVisible(true);
+        telaMenuVenda.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVendaActionPerformed
 
     /**
      * @param args the command line arguments

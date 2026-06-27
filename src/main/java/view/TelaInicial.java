@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import entidades.Funcionario;
 import controladores.ControladorLogin;
+import entidades.Cliente;
+import entidades.Produto;
 import repositorio.Repositorio;
 
 /**
@@ -26,6 +28,23 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        
+        //APENAS PARA TESTES
+        Cliente c1 = new Cliente(1);
+        Funcionario f1 = new Funcionario(1, true);
+        Funcionario f2 = new Funcionario(2, true);
+        Funcionario f3 = new Funcionario(2, true);
+        f1.setCargo("Vendedor");
+        f2.setCargo("Gerente de Vendas");
+        f3.setCargo("Estoquista");
+        Produto p1 = new Produto(1, 1, "cola", "gruda", 20.0, 30.0, 50.0);
+        Produto p2 = new Produto(2, 1, "martelo", "bate", 50.0, 70.0, 100.0);
+        Repositorio.getInstanciaRepositorio().getListaClientes().add(c1);
+        Repositorio.getInstanciaRepositorio().getListaFuncionarios().add(f1);
+        Repositorio.getInstanciaRepositorio().getListaFuncionarios().add(f2);
+        Repositorio.getInstanciaRepositorio().getListaFuncionarios().add(f3);
+        Repositorio.getInstanciaRepositorio().getListaProduto().add(p1);
+        Repositorio.getInstanciaRepositorio().getListaProduto().add(p2);
 
         // 1. Maximiza a tela para ocupar todo o monitor do usuário
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);

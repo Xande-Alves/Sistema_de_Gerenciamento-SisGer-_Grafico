@@ -118,13 +118,11 @@ public class ControladorLogin {
         return Login.getInstanciaLogin().getNivelAcessoAtual().contains(String.valueOf(modulo));
     }
 
-    public int verificaVendedorParaVenda() {
-        for (Funcionario f : Repositorio.getInstanciaRepositorio().getListaFuncionarios()) {
-            if (Objects.equals(f.getLogin(), Login.getInstanciaLogin().getLoginAtual()) && Objects.equals(f.getCargo().toLowerCase(), "vendedor")) {
-                return f.getIdFuncionario();
-            }
+    public boolean verificaVendedorParaVenda(Funcionario vendedor) {
+        if ((vendedor.getCargo().equals("Vendedor")) || (vendedor.getCargo().equals("Gerente de Vendas"))) {
+            return true;
         }
-        return -1;
+        return false;
     }
 
     public String verificaGerenteDeVendasParaVenda() {

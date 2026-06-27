@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Venda {
 
-    private final List<Produto> listaProdutosVenda = new ArrayList<>();
-    private final int idVenda;
+    private List<Produto> listaProdutosVenda = new ArrayList<>();
+    private int idVenda;
     private int idVendedorVenda;
     private int idClienteVenda;
     private LocalDate dataVenda;
@@ -21,6 +21,10 @@ public class Venda {
 
     public int getIdVenda() {
         return idVenda;
+    }
+    
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 
     public int getIdVendedorVenda() {
@@ -65,5 +69,9 @@ public class Venda {
 
     public List<Produto> getListaProdutosVenda() {
         return listaProdutosVenda;
+    }
+    
+    public void setListaProdutosVenda(List<Produto> listaProdutosVenda) {
+        this.listaProdutosVenda = listaProdutosVenda;
     }
 }
