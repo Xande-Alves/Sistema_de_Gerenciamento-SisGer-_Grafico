@@ -5,6 +5,7 @@
 package view.telasVendas;
 
 import controladores.ControladorVenda;
+import controladores.ControladorProduto;
 import entidades.Cliente;
 import entidades.Funcionario;
 import entidades.Produto;
@@ -20,7 +21,8 @@ import view.telasProduto.DialogConsultaProduto;
  */
 public class TelaAtualizarVenda extends javax.swing.JPanel {
 
-    private entidades.Venda vendaAtual; // Armazena o funcionario localizado
+    private entidades.Venda vendaAtual;
+    private entidades.Venda vendaOriginal;
     private boolean escutadorAtivo = false;  // Controla para não ativar o botão enquanto carrega os dados
     private boolean atualizandoTabela = false;
 
@@ -122,19 +124,19 @@ public class TelaAtualizarVenda extends javax.swing.JPanel {
 
                     double quantidade = Double.parseDouble(valor.toString());
 
-                    Produto produto = vendaAtual.getListaProdutosVenda().get(linha);
+                    Produto produtoAtual = vendaAtual.getListaProdutosVenda().get(linha);
 
                     // Atualiza o objeto
-                    produto.setQuantidade(quantidade);
+                    produtoAtual.setQuantidade(quantidade);
 
                     // AVISA SOBRE A QUANTIDADE DE VENDA MAIOR QUE A DE ESTOQUE
-                    if (produto.getQuantidade() > produto.getQuantidadeEstoque()) {
+                    if (produtoAtual.getQuantidade() > produtoAtual.getQuantidadeEstoque()) {
 
                         javax.swing.JOptionPane.showMessageDialog(
                                 this,
-                                "O produto \"" + produto.getNome()
+                                "O produto \"" + produtoAtual.getNome()
                                 + "\" possui apenas "
-                                + produto.getQuantidadeEstoque()
+                                + produtoAtual.getQuantidadeEstoque()
                                 + " unidades em estoque.",
                                 "Estoque insuficiente",
                                 javax.swing.JOptionPane.WARNING_MESSAGE
@@ -142,7 +144,7 @@ public class TelaAtualizarVenda extends javax.swing.JPanel {
                     }
 
                     // Calcula o total
-                    double total = produto.getPrecoVenda() * quantidade;
+                    double total = produtoAtual.getPrecoVenda() * quantidade;
 
                     // Atualiza o total da venda
                     double valorTotalVenda = controladores.ControladorVenda.getInstanciaControladorVenda().calcularValorTotalVenda(vendaAtual);
@@ -526,6 +528,9 @@ public class TelaAtualizarVenda extends javax.swing.JPanel {
             }
         }
 
+        //ATUALIZA O ESTOQUE
+        controladores.ControladorEstoque.getInstanciaControladorEstoque().alteraQuantidadeEstoqueVenda(vendaAtual, vendaOriginal);
+
         // 1. Envia os dados para salvar
         controladores.ControladorVenda.getInstanciaControladorVenda().atualizarVenda(vendaAtual, idCliente, idVendedor, vendaAtual.getListaProdutosVenda(), vendaAtual.getValorTotalVenda());
 
@@ -601,6 +606,7 @@ public class TelaAtualizarVenda extends javax.swing.JPanel {
 
         // Faz a chamada ao Controlador que configuramos anteriormente
         vendaAtual = ControladorVenda.getInstanciaControladorVenda().buscarVendaCopia(idVenda);
+        vendaOriginal = ControladorVenda.getInstanciaControladorVenda().buscarVendaRepositorio(idVenda);
 
         if (vendaAtual == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Venda não encontrada no sistema.", "Não Localizada", javax.swing.JOptionPane.ERROR_MESSAGE);

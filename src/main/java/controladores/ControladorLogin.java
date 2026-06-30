@@ -114,8 +114,11 @@ public class ControladorLogin {
         return false; // Login não encontrado
     }
 
-    public boolean permitirAcesso(int modulo) {
-        return Login.getInstanciaLogin().getNivelAcessoAtual().contains(String.valueOf(modulo));
+    public boolean permitirAcesso(String acesso, String modulo) {
+        if (acesso.contains(modulo)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean verificaVendedorParaVenda(Funcionario vendedor) {

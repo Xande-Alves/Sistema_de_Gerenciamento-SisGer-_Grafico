@@ -427,6 +427,9 @@ public class TelaCadastrarVenda extends javax.swing.JPanel {
                 return;
             }
         }
+        
+        //Diminui a quantidade de produtos no estoque
+        controladores.ControladorEstoque.getInstanciaControladorEstoque().diminuiQuantidadeEstoqueVenda(vendaAtual);
 
         // 1. Envia os dados para salvar
         int idVenda = controladores.ControladorVenda.getInstanciaControladorVenda().efetuarVenda(vendaAtual, idCliente, idVendedor, vendaAtual.getListaProdutosVenda());

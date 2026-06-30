@@ -2,6 +2,7 @@ view\telasFornecedor\TelaAtualizarFornecedor$1.class
 view\telasFuncionario\TelaAtualizarFuncionarios.class
 view\telasFuncionario\TelaConsultaFuncionario$1.class
 view\telasProduto\TelaConsultarProdutos$1.class
+view\telasEstoque\TelaAvisosEstoque$1.class
 entidades\Endereco.class
 view\telasFornecedor\TelaListarFornecedor.class
 repositorio\Repositorio.class
@@ -31,6 +32,7 @@ view\telasVendas\TelaListarVendas$2.class
 entidades\Cliente.class
 entidades\Produto.class
 entidades\Pessoa.class
+view\telasEstoque\TelaAvisosEstoque$2.class
 view\telasFuncionario\TelaMenuFuncionario.class
 controladores\ControladorEndereco.class
 controladores\ControladorEstoque.class
@@ -43,6 +45,7 @@ view\telasFuncionario\TelaCadastroFuncionario.class
 view\telasVendas\TelaCadastrarVenda$1.class
 view\telasFornecedor\TelaCadastrarFornecedor.class
 controladores\ControladorFornecedor.class
+view\telasEstoque\TelaMenuEstoque.class
 view\telasProduto\DialogConsultaProduto.class
 view\telasCliente\TelaListarClientes.class
 view\telasFornecedor\TelaListarFornecedor$1.class
@@ -52,6 +55,8 @@ view\telasVendas\TelaCancelarVenda.class
 entidades\Fornecedor.class
 utilitarios\Formatador.class
 view\telasFuncionario\TelaSalarioFuncionario.class
+view\telasEstoque\TelaAvisosEstoque$3.class
+view\telasEstoque\TelaAlterarEstoque.class
 view\telasVendas\DialogListaProdutosVenda$1.class
 view\telasFuncionario\TelaListarFuncionarios.class
 view\telasFornecedor\TelaConsultarFornecedor$1.class
@@ -63,6 +68,7 @@ view\telasVendas\TelaAtualizarVenda$1.class
 view\telasCliente\TelaConsultaCliente.class
 view\telasFuncionario\TelaAtualizarFuncionarios$1.class
 view\telasCliente\DialogConsultaCliente.class
+view\telasEstoque\TelaAvisosEstoque.class
 view\telasFuncionario\TelaConsultaFuncionario$2.class
 view\telasProduto\TelaConsultarProdutos.class
 view\telasProduto\TelaListarProdutos$1.class
@@ -71,6 +77,7 @@ view\telasVendas\TelaConsultarVendas$1.class
 view\telasProduto\TelaAtualizarProdutos.class
 view\telasCliente\TelaMenuCliente.class
 view\TelaInicial.class
+view\telasEstoque\TelaAlterarEstoque$1.class
 view\telasVendas\TelaListarVendas$1.class
 view\telasProduto\TelaListarProdutos.class
 controladores\ControladorVenda.class

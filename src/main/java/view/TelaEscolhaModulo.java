@@ -4,7 +4,9 @@
  */
 package view;
 
+import entidades.Login;
 import view.telasCliente.TelaMenuCliente;
+import view.telasEstoque.TelaMenuEstoque;
 import view.telasFuncionario.TelaMenuFuncionario;
 import view.telasProduto.TelaMenuProduto;
 import view.telasVendas.TelaMenuVendas;
@@ -108,6 +110,7 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
         jButtonEstoque.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonEstoque.setForeground(new java.awt.Color(0, 0, 0));
         jButtonEstoque.setText("Estoque");
+        jButtonEstoque.addActionListener(this::jButtonEstoqueActionPerformed);
 
         jLabelEscolhaModulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabelEscolhaModulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -169,6 +172,17 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClienteActionPerformed
+        String acessoAtual = entidades.Login.getInstanciaLogin().getNivelAcessoAtual();
+        boolean acessoPermitido = controladores.ControladorLogin.getInstanciaControladorLogin().permitirAcesso(acessoAtual, "1");
+        
+        if (!acessoPermitido) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Você não possui acesso a esse módulo!",
+                    "Acesso negado!",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução
+        }
+        
         TelaMenuCliente telaMenuCliente = new TelaMenuCliente();
         telaMenuCliente.setVisible(true);
         telaMenuCliente.setLocationRelativeTo(null);
@@ -176,6 +190,17 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonClienteActionPerformed
 
     private void jButtonFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFuncionarioActionPerformed
+        String acessoAtual = entidades.Login.getInstanciaLogin().getNivelAcessoAtual();
+        boolean acessoPermitido = controladores.ControladorLogin.getInstanciaControladorLogin().permitirAcesso(acessoAtual, "2");
+        
+        if (!acessoPermitido) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Você não possui acesso a esse módulo!",
+                    "Acesso negado!",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução
+        }
+        
         TelaMenuFuncionario telaMenuFuncionario = new TelaMenuFuncionario();
         telaMenuFuncionario.setVisible(true);
         telaMenuFuncionario.setLocationRelativeTo(null);
@@ -197,6 +222,17 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButtonProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProdutoActionPerformed
+        String acessoAtual = entidades.Login.getInstanciaLogin().getNivelAcessoAtual();
+        boolean acessoPermitido = controladores.ControladorLogin.getInstanciaControladorLogin().permitirAcesso(acessoAtual, "3");
+        
+        if (!acessoPermitido) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Você não possui acesso a esse módulo!",
+                    "Acesso negado!",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução
+        }
+        
         TelaMenuProduto telaMenuProduto = new TelaMenuProduto();
         telaMenuProduto.setVisible(true);
         telaMenuProduto.setLocationRelativeTo(null);
@@ -204,11 +240,40 @@ public class TelaEscolhaModulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProdutoActionPerformed
 
     private void jButtonVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendaActionPerformed
+        String acessoAtual = entidades.Login.getInstanciaLogin().getNivelAcessoAtual();
+        boolean acessoPermitido = controladores.ControladorLogin.getInstanciaControladorLogin().permitirAcesso(acessoAtual, "4");
+        
+        if (!acessoPermitido) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Você não possui acesso a esse módulo!",
+                    "Acesso negado!",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução
+        }
+        
         TelaMenuVendas telaMenuVenda = new TelaMenuVendas();
         telaMenuVenda.setVisible(true);
         telaMenuVenda.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButtonVendaActionPerformed
+
+    private void jButtonEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstoqueActionPerformed
+        String acessoAtual = entidades.Login.getInstanciaLogin().getNivelAcessoAtual();
+        boolean acessoPermitido = controladores.ControladorLogin.getInstanciaControladorLogin().permitirAcesso(acessoAtual, "5");
+        
+        if (!acessoPermitido) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Você não possui acesso a esse módulo!",
+                    "Acesso negado!",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Interrompe a execução
+        }
+        
+        TelaMenuEstoque telaMenuEstoque = new TelaMenuEstoque();
+        telaMenuEstoque.setVisible(true);
+        telaMenuEstoque.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jButtonEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
